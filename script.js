@@ -9,7 +9,24 @@ function Gameboard(){
             }
         }
     }
+    createboard();
     console.log(board);
+}
+
+function Player(name){
+    return {name};    
+}
+
+function PlayerOne(name,symbol,wins){
+    const name = Player(name);
+    const increaseWin = () => wins++;
+    return Object.assign({}, name, {increaseWin});
+}
+
+function PlayerTwo(name,symbol,wins){
+    const name = Player(name);
+    const increaseWin = () => wins++;
+    return Object.assign({}, name, {increaseWin});
 }
 
 function displayGame(){
