@@ -7,7 +7,7 @@ function Gameboard(){
         for(let i=0;i<3;i++){
             board[i] = [];
             for(let j=0;j<3;j++){
-                board[i].push(-1);
+                board[i].push(Cell());
             }
         }
     }
@@ -19,7 +19,14 @@ function Gameboard(){
 }
 
 function Cell(){
+    let value = 0;
 
+    const addToken = (player) => {
+        value = player;
+    };
+
+    const getValue = () => value;
+    return { addToken,getValue};
 }
 
 function Player(name){
