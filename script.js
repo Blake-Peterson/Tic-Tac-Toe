@@ -13,15 +13,13 @@ function Gameboard(){
     }
     getBoard();
 
-    const dropToken = (row, column, player) =>{
-        
-    }
+    return {getBoard};
 }
 
 function Cell(){
     let value = 0;
 
-    const addToken = (player) => {
+    const placeMarker = (player) => {
         value = player;
     };
 
@@ -29,22 +27,12 @@ function Cell(){
     return { addToken,getValue};
 }
 
-function Player(name){
-    return {name};    
-}
-
-function PlayerOne(name,wins){
-    const increaseWin = () => wins++;
-    return Object.assign({}, name, {increaseWin});
-}
-
-function PlayerTwo(name,wins){
-    const increaseWin = () => wins++;
-    return Object.assign({}, name, {increaseWin});
+function Player(name,marker){
+    return {name,marker};    
 }
 
 function GameController(){
-
+    
 }
 
 function startGame(){
