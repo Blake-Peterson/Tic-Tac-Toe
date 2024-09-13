@@ -1,35 +1,49 @@
 function Gameboard(){
     const board =[];
+    const rows =3;
+    const columns=3;
 
-    const createboard = () =>{
+    const getBoard = () =>{
         for(let i=0;i<3;i++){
             board[i] = [];
             for(let j=0;j<3;j++){
-                board[i].push(0);
+                board[i].push(-1);
             }
         }
     }
-    createboard();
-    console.log(board);
+    getBoard();
+
+    const dropToken = (row, column, player) =>{
+        
+    }
+}
+
+function Cell(){
+
 }
 
 function Player(name){
     return {name};    
 }
 
-function PlayerOne(name,symbol,wins){
-    const name = Player(name);
+function PlayerOne(name,wins){
     const increaseWin = () => wins++;
     return Object.assign({}, name, {increaseWin});
 }
 
-function PlayerTwo(name,symbol,wins){
-    const name = Player(name);
+function PlayerTwo(name,wins){
     const increaseWin = () => wins++;
     return Object.assign({}, name, {increaseWin});
 }
 
-function displayGame(){
+function GameController(){
+
+}
+
+function startGame(){
     Gameboard();
+    
 
 }
+
+startGame();
