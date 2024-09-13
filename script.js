@@ -4,22 +4,32 @@ function Gameboard(){
     const columns=3;
 
     const getBoard = () =>{
-        for(let i=0;i<3;i++){
+        for(let i=0;i<rows;i++){
             board[i] = [];
-            for(let j=0;j<3;j++){
+            for(let j=0;j<columns;j++){
                 board[i].push(Cell());
             }
         }
     }
     getBoard();
 
-    return {getBoard};
+    const placeMarker = (row,column,player) =>{
+        board[row][column].addMarker(player);
+    }
+
+    const printBoard = () =>{
+        const boardWithCells = board.map( (row)=>
+             row.map( (cell) => cell.getValue() ) );
+        console.log(boardWithCells);
+    }
+
+    return {getBoard, placeMarker, printBoard};
 }
 
 function Cell(){
-    let value = 0;
+    let value = "";
 
-    const placeMarker = (player) => {
+    const addMarker = (player) => {
         value = player;
     };
 
@@ -32,13 +42,13 @@ function Player(name,marker){
 }
 
 function GameController(){
-    
+
 }
 
-function startGame(){
+function DisplayGame(){
     Gameboard();
     
 
 }
 
-startGame();
+DisplayGame();
