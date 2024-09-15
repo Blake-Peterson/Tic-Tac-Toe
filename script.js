@@ -50,7 +50,7 @@ function GameController(){
         player2 = new Player("Bob the Builder","O")
     ];
 
-    let activePlayer = player[0];
+    let activePlayer = players[0];
     
     const switchPlayerTurn = ()=> {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -105,7 +105,7 @@ function GameController(){
 }
 
 function DisplayGame(){
-    let game = Gameboard();
+    const game = GameController();
     
 
 }
