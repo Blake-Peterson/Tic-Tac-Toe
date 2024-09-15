@@ -17,13 +17,17 @@ function Gameboard(){
         board[row][column].addMarker(player);
     }
 
-    const printBoard = () =>{
+    const getCurrentBoard = () =>{
         const boardWithCells = board.map( (row)=>
-             row.map( (cell) => cell.getValue() ) );
-        console.log(boardWithCells);
+             row.map( cell => cell.getValue() ) );
+        return boardWithCells;
     }
 
-    return {getBoard, placeMarker, printBoard};
+    const printBoard= () =>{
+        console.log(getCurrentBoard());
+    }
+
+    return {getBoard, placeMarker,getCurrentBoard, printBoard};
 }
 
 function Cell(){
@@ -46,8 +50,8 @@ function GameController(){
     const board = Gameboard();
     
     const players = [
-        player1 = new Player("Mark","X"),
-        player2 = new Player("Bob the Builder","O")
+        new Player("Mark","X"),
+        new Player("Bob the Builder","O")
     ];
 
     let activePlayer = players[0];
@@ -85,17 +89,18 @@ function GameController(){
         const checkForWinner = (board)=>{
             for(let condition of winningConditions){
                 const [a,b,c] = condition;
-                if(board[a[0]][a[1]] !== null && 
-                    board[a[0]][a[1]] === board[b[0]][b[1]] &&
-                     board[a[0]][a[1]] === board[c[0]][c[1]]){
+                if( board[a[0]][a[1]] !== "" && 
+                    (board[a[0]][a[1]] === board[b[0]][b[1]]) &&
+                    (board[a[0]][a[1]] === board[c[0]][c[1]]) ){
                     return true;
                 }
-
             }
             return false;
         }
 
-        checkForWinner();
+        if (checkForWinner(board.getCurrentBoard()) ===true){
+            console.log(`The Winner is ${getActivePlayer().name}!`);
+        } 
         switchPlayerTurn();
         printNewRound();
     };
@@ -106,7 +111,12 @@ function GameController(){
 
 function DisplayGame(){
     const game = GameController();
-    
+
+    game.playTurn(1,1);
+    game.playTurn(0,0);
+    game.playTurn(2,0);
+    game.playTurn(0,1);
+    game.playTurn(0,2)
 
 }
 
