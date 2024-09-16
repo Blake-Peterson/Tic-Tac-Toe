@@ -27,7 +27,8 @@ button {
 }
 
 #turn {
-  background-color: red;
+  padding-left: 44vw;
+  align-items: center;
 }
 
 #board-container {
