@@ -14,6 +14,7 @@ button {
   grid-template-rows: repeat(3, 100px);
   gap: 4px;
   margin: 16px;
+  background-color: black;
 }
 
 .cell {
@@ -24,6 +25,7 @@ button {
   align-items: center;
   font-size: 2rem;
   border: 1px solid #000;
+  background-color: white;
 }
 
 #turn {
