@@ -105,19 +105,37 @@ function GameController(){
         printNewRound();
     };
 
-
     return { getActivePlayer, playTurn};
 }
 
-function DisplayGame(){
+document.addEventListener("DOMContentLoaded", () => {
     const game = GameController();
 
+    /*
     game.playTurn(1,1);
     game.playTurn(0,0);
     game.playTurn(2,0);
     game.playTurn(0,1);
     game.playTurn(0,2);
+*/
+    const container = document.querySelector("#container");
+    const boardDiv = document.querySelector("#board");
+    const turnHeader = document.querySelector("#turn");
 
-}
+    for(let i =0; i < 3;i++){
+        for(let j=0;j<3;j++){
+            const cell = document.createElement("div");
+            cell.classList.add('cell');
+            cell.dataset.row=i;
+            cell.dataset.column=j;
 
-DisplayGame();
+            cell.addEventListener('click',(event) =>{
+                const row = event.target.dataset.i;
+                row.textContent=player.marker();
+                const column = event.target.dataset.j;
+                game.playTurn(row,column,event.target);
+            });
+            boardDiv.appendChild(cell);
+        }
+    }
+});

@@ -1,0 +1,42 @@
+button {
+  width: 8em;
+  height: 4em;
+  border-radius: 2em;
+  font-weight: 500;
+}
+
+#container {
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 4px;
+  margin: 16px;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  border: 1px solid #000;
+}
+
+#turn {
+  background-color: red;
+}
+
+#board-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#player-one,
+#player-two {
+}
