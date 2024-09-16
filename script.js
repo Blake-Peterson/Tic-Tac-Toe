@@ -108,7 +108,7 @@ function GameController(){
     return { getActivePlayer, playTurn};
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function displayController(){
     const game = GameController();
 
     /*
@@ -138,4 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
             boardDiv.appendChild(cell);
         }
     }
-});
+}
+
+displayController();
