@@ -1,14 +1,15 @@
-.change-player {
+.change-player,
+#restart-btn {
   width: 8em;
   height: 4em;
   border-radius: 2em;
   font-weight: 500;
 }
 
-button {
-}
-
 #container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #board {
@@ -32,8 +33,7 @@ button {
 }
 
 #turn {
-  padding-left: 44vw;
-  align-items: center;
+  padding-left: 5em;
 }
 
 #board-container {

@@ -8,18 +8,27 @@
 </head>
 <body>
     <div id="container">
-        <h1 id="turn">It's _______ Turn</h1>
-        <div id="board-container">
-            <div id="player-one">
-                <h2>Player 1</h2>
-                <button class="change-player" id="player-1-change" >Change Player Name</button>
-            </div>
-            <div id="board"></div>
-            <div id="player-two">
-                <h2>Player 2</h2>
-                <button class="change-player" id="player-2-change">Change Player Name</button>
+        <div>
+            <h1 id="turn">It's _______ Turn</h1>
+            <div id="board-container">
+                <div id="player-one">
+                    <h2>Player 1</h2>
+                    <button class="change-player" id="player-1-change" >Change Player Name</button>
+                </div>
+                <div id="board"></div>
+                <div id="player-two">
+                    <h2>Player 2</h2>
+                    <button class="change-player" id="player-2-change">Change Player Name</button>
+                </div>
             </div>
         </div>
+        <button id="restart-btn">Restart Game</button>
+        <form id="name-form" style="display: none;">
+            <label for="player-name">Enter New Name: </label>
+            <input type="text" id="player-name" placeholder="Bob the Builder">
+            <button type="submit">Submit</button>
+            <button type="button" id="cancel-name-change">Cancel</button>
+        </form>
     </div>
     <script src="script.js"></script>
 </body>
