@@ -3,20 +3,14 @@ function Gameboard(){
     const rows =3;
     const columns=3;
 
-
-    const getBoard = () => {
-        for(let i=0;i<rows;i++){
-            board[i] = [];
-            for(let j=0;j<columns;j++){
-                board[i].push(Cell());
-            }
+    for(let i=0;i<rows;i++){
+        board[i] = [];
+        for(let j=0;j<columns;j++){
+            board[i].push(Cell());
         }
-        return board;
     }
 
-    console.log(Array.isArray(board));
-    getBoard();
-    console.log(Array.isArray(getBoard()));
+    const getBoard = () => board;
 
     const placeMarker = (row,column,player) =>{
         board[row][column].addMarker(player);
@@ -116,59 +110,55 @@ function GameController(){
 
 function displayController(){
     const game = GameController();
-
-    console.log(Array.isArray(game.getBoard()));
-    /*
-    game.playTurn(1,1);
-    /*
-    game.playTurn(0,0);
-    game.playTurn(2,0);
-    game.playTurn(0,1);
-    game.playTurn(0,2);
-*/
+    
     const container = document.querySelector("#container");
     const boardDiv = document.querySelector("#board");
     const turnHeader = document.querySelector("#turn");
 
     const updatePlayerName = (player) => {
-        const nameBtn = document.querySelector("button");
+        const nameBtn = document.querySelector("change-player");
         //create a prompt to change name
         const form = document.createElement("form");
-
     }
 
+    function clickButtonPlayerName(e){
 
-
+    }
+    
     const updateDisplay = () => {
         boardDiv.textContent = "";
+
         const board = game.getBoard();
+        console.log(game.getBoard());
         const activePlayer = game.getActivePlayer();
 
         turnHeader.textContent = `It's ${activePlayer.name}'s turn...`;
+        console.log("This is board below");
+        console.log(board);
 
         board.forEach((row, rowIndex) => {
-            row.forEach((cell, colIndex) => {
-              const cellDiv = document.createElement("div");
-              cellDiv.classList.add("cell");
-              cellDiv.dataset.column = colIndex;
-              cellDiv.dataset.row = rowIndex;
-              cellDiv.textContent = cell.getValue();
-              boardDiv.appendChild(cellDiv);
+            row.forEach((cell , colIndex) => {
+              const cellBtn = document.createElement("button");
+              cellBtn.classList.add("cell");
+              cellBtn.dataset.column = colIndex;
+              cellBtn.dataset.row = rowIndex;
+              cellBtn.textContent = cell.getValue();
+              boardDiv.appendChild(cellBtn);
             })
           })
     }
-
-
+    
     function clickHandlerBoard(e){
         const selectedColumn = e.target.dataset.column;
         const selectedRow = e.target.dataset.row;
 
-        if(!selectedColumn && !selectedRow);
-        game.playTurn(selectedRow,selectedColumn);
-        updateScreen();
-    }
-    boardDiv.addEventListener("click",clickHandlerBoard);
+        if(!selectedColumn && !selectedRow) return;
 
+        game.playTurn(parseInt(selectedRow),parseInt(selectedColumn));
+        updateDisplay();
+    }
+
+    boardDiv.addEventListener("click",clickHandlerBoard);
     updateDisplay();
 }
 

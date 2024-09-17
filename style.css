@@ -1,8 +1,11 @@
-button {
+.change-player {
   width: 8em;
   height: 4em;
   border-radius: 2em;
   font-weight: 500;
+}
+
+button {
 }
 
 #container {
