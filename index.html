@@ -12,23 +12,29 @@
             <h1 id="turn">It's _______ Turn</h1>
             <div id="board-container">
                 <div id="player-one">
-                    <h2>Player 1</h2>
+                    <h2 id="player1-name">Player 1</h2>
                     <button class="change-player" id="player-1-change" >Change Player Name</button>
+                    <form id="name-form-1" style="display: none;">
+                        <label for="player-name-1">Enter New Name: </label>
+                        <input type="text" id="player-name-1" placeholder="Bob the Builder">
+                        <button type="submit">Submit</button>
+                        <button type="button" id="cancel-name-change1">Cancel</button>
+                    </form>
                 </div>
                 <div id="board"></div>
                 <div id="player-two">
-                    <h2>Player 2</h2>
+                    <h2 id="player2-name">Player 2</h2>
                     <button class="change-player" id="player-2-change">Change Player Name</button>
+                    <form id="name-form-2" style="display: none;">
+                        <label for="player-name-2">Enter New Name: </label>
+                        <input type="text" id="player-name-2" placeholder="Bob the Builder">
+                        <button type="submit">Submit</button>
+                        <button type="button" id="cancel-name-change2">Cancel</button>
+                    </form>
                 </div>
             </div>
         </div>
         <button id="restart-btn">Restart Game</button>
-        <form id="name-form" style="display: none;">
-            <label for="player-name">Enter New Name: </label>
-            <input type="text" id="player-name" placeholder="Bob the Builder">
-            <button type="submit">Submit</button>
-            <button type="button" id="cancel-name-change">Cancel</button>
-        </form>
     </div>
     <script src="script.js"></script>
 </body>

@@ -9,7 +9,6 @@ function Gameboard(){
             board[i].push(Cell());
         }
     }
-
     const getBoard = () => board;
 
     const placeMarker = (row,column,player) =>{
@@ -42,7 +41,11 @@ function Cell(){
 }
 
 function Player(name,marker){
-    return {name,marker};    
+    let playerName = name;
+    const getPlayerName = () =>playerName;
+    const setPlayerName = (newName) => {playerName = newName;};
+
+    return {getPlayerName,setPlayerName,marker};    
 }
 
 function GameController(){
@@ -55,20 +58,34 @@ function GameController(){
     ];
 
     let activePlayer = players[0];
+    let winner = null;
+    let isGameOver = null;
     
     const switchPlayerTurn = ()=> {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
 
+    const getAllPlayers= () => players;
+    console.log(getAllPlayers());
+
     const getActivePlayer = () => activePlayer;
+    const getWinner = () => winner;
+    const isGameEnded = () => isGameOver;
 
     const printNewRound = ()=>{
         board.printBoard();
-        console.log(`${getActivePlayer().name}'s turn.`);
+        console.log(`${getActivePlayer().getPlayerName}'s turn.`);
     };
 
+    const resetGame = () => {
+        board.getBoard().forEach(row => row.forEach(cell => cell.addMarker("")));
+        activePlayer = players[0];
+        winner = null;
+        isGameOver = null;
+    }
+
     const playTurn = (row,column) => {
-        console.log(`Placing ${getActivePlayer().name}'s symbol into row ${row} column ${column}...`);
+        console.log(`Placing ${getActivePlayer().getPlayerName}'s symbol into row ${row} column ${column}...`);
         board.placeMarker(row,column,getActivePlayer().marker);
 
         /* Check board for a winning condition*/
@@ -99,13 +116,15 @@ function GameController(){
         }
 
         if (checkForWinner(board.getCurrentBoard()) ===true){
-            console.log(`The Winner is ${getActivePlayer().name}!`);
+            winner = getActivePlayer().getPlayerName();
+            isGameOver=true;
+            console.log(`The Winner is ${getActivePlayer().getPlayerName()}!`);
         } 
         switchPlayerTurn();
         printNewRound();
     };
 
-    return { getActivePlayer, playTurn, getBoard:board.getBoard};
+    return { getActivePlayer, getAllPlayers, playTurn, resetGame, getWinner, isGameEnded, getBoard:board.getBoard};
 }
 
 function displayController(){
@@ -114,27 +133,38 @@ function displayController(){
     const container = document.querySelector("#container");
     const boardDiv = document.querySelector("#board");
     const turnHeader = document.querySelector("#turn");
+    const newGameBtn = document.querySelector("#restart-btn");
 
-    const updatePlayerName = (player) => {
-        const nameBtn = document.querySelector("change-player");
-        //create a prompt to change name
-        const form = document.createElement("form");
-    }
+    const player1Header = document.querySelector("#player1-name");
+    const player2Header = document.querySelector("#player2-name");
 
-    function clickButtonPlayerName(e){
+    const p1_nameBtn = document.querySelector("#player-1-change");
+    const p2_nameBtn = document.querySelector("#player-2-change");
 
-    }
-    
+    const player1Form = document.querySelector("#name-form-1");
+    const player2Form = document.querySelector("#name-form-2");
+
+    const player1NameInput = document.querySelector("#player-name-1");
+    const player2NameInput = document.querySelector("#player-name-2");
+    const cancel_name_change1_btn = document.querySelectorAll("#cancel-name-change1");
+    const cancel_name_change2_btn = document.querySelectorAll("#cancel-name-change2");
+
+    let playerIndex = null;
+
     const updateDisplay = () => {
         boardDiv.textContent = "";
-
         const board = game.getBoard();
-        console.log(game.getBoard());
-        const activePlayer = game.getActivePlayer();
 
-        turnHeader.textContent = `It's ${activePlayer.name}'s turn...`;
-        console.log("This is board below");
-        console.log(board);
+        const winner  = game.getWinner();
+        const activePlayer = game.getActivePlayer();
+    
+
+        if(!winner){
+            turnHeader.textContent = `It's ${activePlayer.getPlayerName()}'s turn...`;
+        } else{
+            turnHeader.textContent = `${activePlayer.getPlayerName()} Wins!`;
+            return;
+        }
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell , colIndex) => {
@@ -153,12 +183,62 @@ function displayController(){
         const selectedRow = e.target.dataset.row;
 
         if(!selectedColumn && !selectedRow) return;
-
+        if(game.isGameEnded()) return;
+        
         game.playTurn(parseInt(selectedRow),parseInt(selectedColumn));
         updateDisplay();
     }
 
     boardDiv.addEventListener("click",clickHandlerBoard);
+
+    const updatePlayerName = (playerIndex, newName) => {
+        if(playerIndex ===0){
+            game.getAllPlayers()[playerIndex].setPlayerName(newName);
+            player1Header.textContent = newName;
+        } else {
+            game.getAllPlayers()[playerIndex].setPlayerName(newName);
+            player2Header.textContent = newName;
+        }
+        updateDisplay();
+    }
+
+    player1Form.addEventListener("submit",(e)=>{
+        e.preventDefault();
+        const newName = player1NameInput.value;
+        updatePlayerName(0,newName);
+        player1Form.style.display="none";
+    });
+
+    player2Form.addEventListener("submit",(e)=>{
+        e.preventDefault();
+        const newName = player2NameInput.value;
+        updatePlayerName(1,newName);
+        player2Form.style.display="none";
+    });
+
+
+    p1_nameBtn.addEventListener("click",() =>{
+        player1Form.style.display="block";
+    });
+
+    p2_nameBtn.addEventListener("click",() =>{
+        player2Form.style.display="block";
+    });
+/*
+    cancel_name_change1_btn.addEventListener("click", () =>{
+        player1Form.style.display="none";
+    });
+
+    cancel_name_change2_btn.addEventListener("click", () =>{
+        player2Form.style.display="none";
+    });
+*/
+    function newGame(){
+        game.resetGame();
+        updateDisplay();
+    }
+    newGameBtn.addEventListener("click",newGame);
+
     updateDisplay();
 }
 
