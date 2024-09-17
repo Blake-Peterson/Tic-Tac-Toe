@@ -148,8 +148,8 @@ function displayController(){
 
     const player1NameInput = document.querySelector("#player-name-1");
     const player2NameInput = document.querySelector("#player-name-2");
-    const cancel_name_change1_btn = document.querySelectorAll("#cancel-name-change1");
-    const cancel_name_change2_btn = document.querySelectorAll("#cancel-name-change2");
+    const cancel_name_change1_btn = document.querySelector("#cancel-name-change1");
+    const cancel_name_change2_btn = document.querySelector("#cancel-name-change2");
 
     const updateDisplay = () => {
         const board = game.getBoard();
@@ -170,7 +170,6 @@ function displayController(){
                 boardDiv.appendChild(cellBtn);
               }
               cellBtn.textContent = cell.getValue();
-
             });
           });
 
@@ -228,7 +227,7 @@ function displayController(){
     p2_nameBtn.addEventListener("click",() =>{
         player2Form.style.display="block";
     });
-/*
+
     cancel_name_change1_btn.addEventListener("click", () =>{
         player1Form.style.display="none";
     });
@@ -236,7 +235,7 @@ function displayController(){
     cancel_name_change2_btn.addEventListener("click", () =>{
         player2Form.style.display="none";
     });
-*/
+
     function newGame(){
         game.resetGame();
         updateDisplay();
