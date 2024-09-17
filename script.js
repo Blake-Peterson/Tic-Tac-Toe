@@ -119,9 +119,11 @@ function GameController(){
             winner = getActivePlayer().getPlayerName();
             isGameOver=true;
             console.log(`The Winner is ${getActivePlayer().getPlayerName()}!`);
-        } 
-        switchPlayerTurn();
-        printNewRound();
+        } else {
+            switchPlayerTurn();
+            printNewRound();
+        }
+
     };
 
     return { getActivePlayer, getAllPlayers, playTurn, resetGame, getWinner, isGameEnded, getBoard:board.getBoard};
@@ -149,34 +151,36 @@ function displayController(){
     const cancel_name_change1_btn = document.querySelectorAll("#cancel-name-change1");
     const cancel_name_change2_btn = document.querySelectorAll("#cancel-name-change2");
 
-    let playerIndex = null;
-
     const updateDisplay = () => {
-        boardDiv.textContent = "";
         const board = game.getBoard();
-
         const winner  = game.getWinner();
         const activePlayer = game.getActivePlayer();
     
 
-        if(!winner){
-            turnHeader.textContent = `It's ${activePlayer.getPlayerName()}'s turn...`;
-        } else{
-            turnHeader.textContent = `${activePlayer.getPlayerName()} Wins!`;
-            return;
-        }
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell , colIndex) => {
-              const cellBtn = document.createElement("button");
-              cellBtn.classList.add("cell");
-              cellBtn.dataset.column = colIndex;
-              cellBtn.dataset.row = rowIndex;
+              let cellBtn = boardDiv.querySelector(`[data-row="${rowIndex}"][data-column="${colIndex}"]`);
+            
+              if(!cellBtn){
+                cellBtn = document.createElement("button");
+                cellBtn.classList.add("cell");
+                cellBtn.dataset.column = colIndex;
+                cellBtn.dataset.row = rowIndex;
+                boardDiv.appendChild(cellBtn);
+              }
               cellBtn.textContent = cell.getValue();
-              boardDiv.appendChild(cellBtn);
-            })
-          })
-    }
+
+            });
+          });
+
+        if(!winner){
+            turnHeader.textContent = `It's ${activePlayer.getPlayerName()}'s turn...`;
+        } else{
+            turnHeader.textContent = `${winner} Wins!`;
+            return;
+        }
+    };
     
     function clickHandlerBoard(e){
         const selectedColumn = e.target.dataset.column;
